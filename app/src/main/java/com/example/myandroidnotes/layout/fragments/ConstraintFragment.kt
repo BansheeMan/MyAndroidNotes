@@ -3,6 +3,7 @@ package com.gb.m_1919_1872_1.view.layout.fragments
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.myandroidnotes.databinding.FragmentConstraintBinding
@@ -21,6 +22,11 @@ class ConstraintFragment : Fragment() {
     ): View {
         _binding = FragmentConstraintBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.buttonGroup.visibility = View.GONE
     }
 
 
