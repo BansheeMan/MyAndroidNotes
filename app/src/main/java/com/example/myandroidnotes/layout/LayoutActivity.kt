@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.myandroidnotes.R
 import com.example.myandroidnotes.databinding.ActivityLayoutBinding
-import com.gb.m_1919_1872_1.view.layout.fragments.ConstraintFragment
-import com.gb.m_1919_1872_1.view.layout.fragments.CoordinatorFragment
-import com.gb.m_1919_1872_1.view.layout.fragments.MotionFragment
+import com.example.myandroidnotes.layout.constraint.ConstraintFragment
+import com.example.myandroidnotes.layout.coordinator.CoordinatorFragment
+import com.example.myandroidnotes.layout.motion.MotionFragment
 
 class LayoutActivity : AppCompatActivity() {
 
@@ -23,26 +23,24 @@ class LayoutActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.action_bottom_navigation_constraint -> {
-                    navigationTo(ConstraintFragment())
+                    navigationTo(ConstraintFragment.newInstance())
                     true
                 }
-                R.id.action_bottom_navigation_constraint -> {
-                    navigationTo(CoordinatorFragment())
+                R.id.action_bottom_navigation_coordinator -> {
+                    navigationTo(CoordinatorFragment.newInstance())
                     true
                 }
                 R.id.action_bottom_navigation_motion -> {
-                    navigationTo(MotionFragment())
+                    navigationTo(MotionFragment.newInstance())
                     true
                 }
                 else -> true
             }
         }
-        binding.bottomNavigationView.selectedItemId = R.id.action_bottom_navigation_constraint
+        binding.bottomNavigationView.selectedItemId = R.id.action_bottom_navigation_coordinator
     }
 
     private fun navigationTo(f: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
     }
-
-
 }

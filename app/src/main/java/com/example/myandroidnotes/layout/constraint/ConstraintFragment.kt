@@ -1,9 +1,8 @@
-package com.gb.m_1919_1872_1.view.layout.fragments
+package com.example.myandroidnotes.layout.constraint
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.myandroidnotes.databinding.FragmentConstraintBinding

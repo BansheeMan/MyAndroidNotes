@@ -17,7 +17,7 @@
         android:id="@+id/parentSDuper"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1"
+        android:text="@string/one"
         app:layout_constraintBottom_toBottomOf="@id/guide1"
         app:layout_constraintCircleAngle="0"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +31,7 @@
         app:layout_constraintCircleRadius="130dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2"
+        android:text="@string/two"
         tools:ignore="MissingConstraints"
         app:layout_constraintCircleAngle="0"/>
 
@@ -41,7 +41,7 @@
         app:layout_constraintCircleRadius="130dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="3"
+        android:text="@string/three"
         tools:ignore="MissingConstraints"
         app:layout_constraintCircleAngle="45"/>
     <Button
@@ -50,7 +50,7 @@
         app:layout_constraintCircleRadius="130dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="4"
+        android:text="@string/four"
         tools:ignore="MissingConstraints"
         app:layout_constraintCircleAngle="90"/>
 
@@ -80,7 +80,7 @@
         android:id="@+id/materialButton1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="1"
+        android:text="@string/one"
         app:layout_constraintVertical_bias="0.2"
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -94,7 +94,7 @@
         android:id="@+id/materialButton2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="2"
+        android:text="@string/two"
         app:layout_constraintVertical_bias="0.3"
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -107,7 +107,7 @@
         android:id="@+id/materialButton3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/_3"
+        android:text="@string/three"
         app:layout_constraintStart_toStartOf="@id/barrier1"
         app:layout_constraintTop_toTopOf="@id/barrier2"
         app:layout_constraintWidth_percent="0.2" />

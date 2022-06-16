@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bottom_sheet_padding">10dp</dimen>
+
+    <dimen name="bottom_sheet_title_start_padding">10dp</dimen>
+    <dimen name="bottom_sheet_explanation_start_padding">10dp</dimen>
+    <dimen name="bottom_sheet_title_end_padding">10dp</dimen>
+    <dimen name="bottom_sheet_explanation_end_padding">10dp</dimen>
+    <dimen name="text_margin">20dp</dimen>
+</resources>

@@ -1,4 +1,4 @@
-package com.gb.m_1919_1872_1.view.layout.fragments
+package com.example.myandroidnotes.layout.motion
 
 import android.os.Bundle
 import android.view.LayoutInflater

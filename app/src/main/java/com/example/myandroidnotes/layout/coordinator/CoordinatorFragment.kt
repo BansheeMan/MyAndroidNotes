@@ -1,28 +1,27 @@
-package com.gb.m_1919_1872_1.view.layout.fragments
+package com.example.myandroidnotes.layout.coordinator
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.myandroidnotes.databinding.ActivityLayoutBinding
+import com.example.myandroidnotes.databinding.FragmentCoordinatorBinding
 
 
 class CoordinatorFragment : Fragment() {
 
 
-    private var _binding: ActivityLayoutBinding? = null
-    private val binding: ActivityLayoutBinding
+    private var _binding: FragmentCoordinatorBinding? = null
+    private val binding: FragmentCoordinatorBinding
         get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = ActivityLayoutBinding.inflate(inflater, container, false)
+        _binding = FragmentCoordinatorBinding.inflate(inflater, container, false)
         return binding.root
     }
-
 
     companion object {
         @JvmStatic
