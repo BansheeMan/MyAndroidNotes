@@ -5,21 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.myandroidnotes.databinding.ActivityLayoutBinding
+import com.example.myandroidnotes.databinding.FragmentMotionEndBinding
+import com.example.myandroidnotes.databinding.FragmentMotionStartBinding
 
 
 class MotionFragment : Fragment() {
 
 
-    private var _binding: ActivityLayoutBinding? = null
-    private val binding: ActivityLayoutBinding
+    private var _binding: FragmentMotionStartBinding? = null
+    private val binding: FragmentMotionStartBinding
         get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = ActivityLayoutBinding.inflate(inflater, container, false)
+        _binding = FragmentMotionStartBinding.inflate(inflater, container, false)
         return binding.root
     }
 

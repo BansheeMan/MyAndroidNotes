@@ -20,15 +20,16 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
+            android:background="@drawable/horror"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
-            <ImageView
+            <!--<ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/horror"
-                android:contentDescription="@string/pictureforcoolapsing" />
+                android:contentDescription="@string/pictureforcoolapsing" />-->
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -62,6 +63,8 @@
         android:layout_marginEnd="10dp"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
+        app:layout_behavior=".layout.coordinator.behavior.AlfaBehavior"
+        android:backgroundTint="@color/teal_700"
         android:text="@string/send"
         app:icon="@drawable/ic_mars"
         />

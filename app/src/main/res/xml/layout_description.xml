@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:constraintSetStart="@layout/fragment_motion_start"
+        app:constraintSetEnd="@layout/fragment_motion_end"
+        app:pathMotionArc="flip"
+        app:duration="2000">
+        <OnClick app:targetId="@+id/materialButton2" />
+    </Transition>
+
+    <Transition
+        app:constraintSetStart="@layout/fragment_motion_end"
+        app:constraintSetEnd="@layout/fragment_motion_start"
+        app:pathMotionArc="flip"
+        app:duration="2000">
+        <OnClick app:targetId="@+id/materialButton1" />
+    </Transition>
+
+
+</MotionScene>
