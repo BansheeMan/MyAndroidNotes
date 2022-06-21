@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import com.example.myandroidnotes.databinding.FragmentCoordinatorBinding
+import com.example.myandroidnotes.layout.coordinator.behavior.AlfaBehavior
 
 
 class CoordinatorFragment : Fragment() {
@@ -21,6 +23,13 @@ class CoordinatorFragment : Fragment() {
     ): View {
         _binding = FragmentCoordinatorBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val params =  (binding.buttonCoordinator.layoutParams as CoordinatorLayout.LayoutParams)
+        params.behavior = AlfaBehavior(requireContext())
+        binding.buttonCoordinator.layoutParams = params
     }
 
     companion object {
