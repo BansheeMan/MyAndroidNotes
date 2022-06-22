@@ -19,6 +19,10 @@
 
         <activity
             android:name=".layout.LayoutActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".AnimationsActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
