@@ -1,12 +1,10 @@
 package com.example.myandroidnotes
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.transition.ChangeBounds
-import androidx.transition.Fade
-import androidx.transition.TransitionManager
-import androidx.transition.TransitionSet
+import androidx.transition.*
 import com.example.myandroidnotes.databinding.ActivityAnimationsBinding
 
 class AnimationsActivity : AppCompatActivity() {
@@ -22,10 +20,14 @@ class AnimationsActivity : AppCompatActivity() {
             val transitionFade = Fade()
             transitionFade.duration = 3000
             val transitionChangeBounds = ChangeBounds()
-            transitionChangeBounds.duration= 5000
+            transitionChangeBounds.duration = 1000
+            val transitionSlide = Slide(Gravity.BOTTOM)
+            transitionSlide.duration = 4000
+
             val transitionSet = TransitionSet().run {
-                addTransition(transitionFade)
+                // addTransition(transitionFade)
                 addTransition(transitionChangeBounds)
+                addTransition(transitionSlide)
             }
             TransitionManager.beginDelayedTransition(binding.transitionsContainer, transitionSet)
 
