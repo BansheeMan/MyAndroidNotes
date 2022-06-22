@@ -1,13 +1,11 @@
 package com.example.myandroidnotes
 
 import android.os.Bundle
+import android.view.Gravity
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.transition.ChangeBounds
-import androidx.transition.ChangeImageTransform
-import androidx.transition.TransitionManager
-import androidx.transition.TransitionSet
+import androidx.transition.*
 import com.example.myandroidnotes.databinding.ActivityAnimationsBinding
 
 class AnimationsActivity : AppCompatActivity() {
@@ -21,33 +19,27 @@ class AnimationsActivity : AppCompatActivity() {
         binding = ActivityAnimationsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.imageView.setOnClickListener {
+        binding.button.setOnClickListener {
             isOpen = !isOpen
             ////////////////////////////////////////////////////////////////
             val trCB = ChangeBounds()
-            val trImage = ChangeImageTransform()
+            val path = ArcMotion()
+            path.maximumAngle = 90.0f
             trCB.duration = 3000
-            trImage.duration = 3000
+            trCB.setPathMotion(path)
             val trSet = TransitionSet().apply {
-               addTransition(trCB)    //ScaleType
-               addTransition(trImage)  //изменение размеров в лэйауте (меняется height)
+               addTransition(trCB)
             }
 
             TransitionManager.beginDelayedTransition(binding.root, trSet)
             //////////////////////////////////////////////////////////////
-            binding.imageView.scaleType = if (isOpen) {
-                ImageView.ScaleType.CENTER_CROP
+            val params = (binding.button.layoutParams as FrameLayout.LayoutParams)
+            params.gravity = if (isOpen) {
+                Gravity.BOTTOM or Gravity.END
             } else {
-                ImageView.ScaleType.CENTER_INSIDE
+                Gravity.TOP or Gravity.START
             }
-
-            val params = (binding.imageView.layoutParams as FrameLayout.LayoutParams)
-            params.height = if (isOpen) {
-                FrameLayout.LayoutParams.MATCH_PARENT
-            } else {
-                FrameLayout.LayoutParams.WRAP_CONTENT
-            }
-            binding.imageView.layoutParams = params
+            binding.button.layoutParams = params
         }
 
     }
