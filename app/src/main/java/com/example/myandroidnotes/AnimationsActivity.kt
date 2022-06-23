@@ -26,70 +26,12 @@ class AnimationsActivity : AppCompatActivity() {
         binding = ActivityAnimationsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.fab.setOnClickListener {
-            isOpen = !isOpen
-            ////////////////////////////////////////////////////////////////
-            if (isOpen) {
-                ObjectAnimator.ofFloat(binding.plusImageview, View.ROTATION, 0f, 135f)
-                    .setDuration(duration).start()
-                ObjectAnimator.ofFloat(binding.optionOneContainer, View.TRANSLATION_Y, 0f, -135f)
-                    .setDuration(duration).start()
-                ObjectAnimator.ofFloat(binding.optionTwoContainer, View.TRANSLATION_Y, 0f, -250f)
-                    .setDuration(duration).start()
+        //binding.header.isSelected = true
+        //binding.header.isSelected = false
 
-                binding.optionTwoContainer.animate().alpha(1f).setDuration(duration).setListener(object :AnimatorListenerAdapter(){
-                    override fun onAnimationEnd(animation: Animator?) {
-                        super.onAnimationEnd(animation)
-                        binding.optionTwoContainer.isClickable = true
-                    }
-                })
-
-                binding.optionOneContainer.animate().alpha(1f).setDuration(duration).setListener(object :AnimatorListenerAdapter(){
-                    override fun onAnimationEnd(animation: Animator?) {
-                        super.onAnimationEnd(animation)
-                       binding.optionOneContainer.isClickable = true
-                        Log.d("@@@", "${binding.optionOneContainer.isClickable}")
-
-                    }
-                })
-
-                binding.transparentBackground.animate().alpha(0.6f).duration = duration
-
-            } else {
-                ObjectAnimator.ofFloat(binding.plusImageview, View.ROTATION, 135f, 0f)
-                    .setDuration(duration).start()
-                ObjectAnimator.ofFloat(binding.optionOneContainer, View.TRANSLATION_Y, -135f, 0f)
-                    .setDuration(duration).start()
-                ObjectAnimator.ofFloat(binding.optionTwoContainer, View.TRANSLATION_Y, -250f, 0f)
-                    .setDuration(duration).start()
-
-                binding.optionTwoContainer.animate().alpha(0f).setDuration(duration).setListener(object :AnimatorListenerAdapter(){
-                    override fun onAnimationEnd(animation: Animator?) {
-                        super.onAnimationEnd(animation)
-                        binding.optionTwoContainer.isClickable = false
-                    }
-                })
-
-                binding.optionOneContainer.animate().alpha(0f).setDuration(duration).setListener(object :AnimatorListenerAdapter(){
-                    override fun onAnimationEnd(animation: Animator?) {
-                        super.onAnimationEnd(animation)
-                        binding.optionOneContainer.isClickable = false
-                        Log.d("@@@", "${binding.optionOneContainer.isClickable}")
-
-                    }
-                })
-
-                binding.transparentBackground.animate().alpha(0.0f).duration = duration
-            }
+        binding.scrollView.setOnScrollChangeListener{ _,_,_,_,_ ->
+            binding.header.isSelected = binding.scrollView.canScrollVertically(-1)
         }
-
-
-        binding.optionOneContainer.setOnClickListener { //когда вешаем слушатель isClickable = true
-            Toast.makeText(this, "optionOneContainer", Toast.LENGTH_SHORT).show()
-
-        }
-        binding.optionOneContainer.isClickable = false
-        Log.d("@@@", "${binding.optionOneContainer.isClickable}")
 
     }
 
