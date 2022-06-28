@@ -1,20 +1,11 @@
 package com.example.myandroidnotes
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
 import android.os.Bundle
-import android.util.Log
-import android.view.Gravity
-import android.view.View
 import android.view.animation.AnticipateOvershootInterpolator
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.transition.*
-import com.example.myandroidnotes.databinding.ActivityAnimationsBinding
+import androidx.transition.ChangeBounds
+import androidx.transition.TransitionManager
 import com.example.myandroidnotes.databinding.ActivityAnimationsBonusStartBinding
 
 class AnimationsActivity : AppCompatActivity() {
@@ -30,21 +21,32 @@ class AnimationsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        binding.backgroundImage.setOnClickListener{
+        binding.backgroundImage.setOnClickListener {
 
             val constraintSet = ConstraintSet()
-            //constraintSet.clone(binding.constraintContainer)
+            constraintSet.clone(binding.constraintContainer)
 
             val transition = ChangeBounds()
             transition.interpolator = AnticipateOvershootInterpolator(5f)
             transition.duration = 1000
-            TransitionManager.beginDelayedTransition(binding.constraintContainer,transition )
+            TransitionManager.beginDelayedTransition(binding.constraintContainer, transition)
 
             isOpen = !isOpen
-            if(isOpen) {
-                constraintSet.clone(this, R.layout.activity_animations_bonus_end)
+            if (isOpen) {
+                //constraintSet.clear(R.id.title)
+                constraintSet.connect(
+                    R.id.title,
+                    ConstraintSet.RIGHT,
+                    R.id.backgroundImage,
+                    ConstraintSet.RIGHT
+                )
             } else {
-                constraintSet.clone(this, R.layout.activity_animations_bonus_start)
+                constraintSet.connect(
+                    R.id.title,
+                    ConstraintSet.RIGHT,
+                    R.id.backgroundImage,
+                    ConstraintSet.LEFT
+                )
             }
             constraintSet.applyTo(binding.constraintContainer)
         }
