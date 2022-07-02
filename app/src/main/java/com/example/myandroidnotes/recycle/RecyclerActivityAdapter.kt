@@ -11,7 +11,7 @@ const val TYPE_EARTH = 1
 const val TYPE_MARS = 2
 
 class RecyclerActivityAdapter(private var list: List<Data>) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<BaseViewHolder>() {
 
     override fun getItemCount(): Int {
         return list.size
@@ -21,7 +21,7 @@ class RecyclerActivityAdapter(private var list: List<Data>) :
         return list[position].type
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
             TYPE_EARTH -> {
                 val view =
@@ -41,21 +41,17 @@ class RecyclerActivityAdapter(private var list: List<Data>) :
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (getItemViewType(position)) {
-            TYPE_EARTH -> {
-                (holder as EarthViewHolder).myBind(list[position])
-            }
-            TYPE_MARS -> {
-                (holder as MarsViewHolder).myBind(list[position])
-            }
-        }
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        holder.myBind(list[position])
     }
 }
 
+abstract class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    abstract fun myBind(data: Data)
+}
 
-class EarthViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    fun myBind(data: Data) {
+class EarthViewHolder(view: View) : BaseViewHolder(view) {
+    override fun myBind(data: Data) {
 
         /*(itemView as ConstraintLayout).findViewById<TextView>(R.id.title).text = data.someText
             (itemView as ConstraintLayout).findViewById<TextView>(R.id.descriptionTextView).text = data.someDescription*/
@@ -65,13 +61,14 @@ class EarthViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         binding.descriptionTextView.text = data.someDescription*/
 
         (ActivityRecyclerItemEarthBinding.bind(itemView)).apply {
+            title.text = data.someText
             descriptionTextView.text = data.someDescription
         }
     }
 }
 
-class MarsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    fun myBind(data: Data) {
+class MarsViewHolder(view: View) : BaseViewHolder(view) {
+    override fun myBind(data: Data) {
         (ActivityRecyclerItemMarsBinding.bind(itemView)).apply {
             title.text = data.someText
         }
