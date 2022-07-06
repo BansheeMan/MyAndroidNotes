@@ -16,6 +16,7 @@ class RecyclerActivity : AppCompatActivity() {
 
 
         val list = arrayListOf(
+            Data("HEADER","", TYPE_HEADER),
             Data("Earth1","Earth des",TYPE_EARTH),
             Data("Earth2","Earth des",TYPE_EARTH),
             Data("Mars3", "Mars des",TYPE_MARS),
