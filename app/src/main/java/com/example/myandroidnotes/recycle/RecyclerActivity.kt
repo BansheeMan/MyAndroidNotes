@@ -4,34 +4,53 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myandroidnotes.databinding.ActivityRecyclerBinding
 
-class RecyclerActivity : AppCompatActivity() {
+class RecyclerActivity : AppCompatActivity(), OnListItemClickListener {
 
 
     lateinit var binding: ActivityRecyclerBinding
+    lateinit var adapter: RecyclerActivityAdapter
+
+    private val list = arrayListOf(
+        Data("HEADER", "", TYPE_HEADER),
+        Data("Earth1", "Earth des", TYPE_EARTH),
+        Data("Earth2", "Earth des", TYPE_EARTH),
+        Data("Mars3", "Mars des", TYPE_MARS),
+        Data("Earth4", "Earth des", TYPE_EARTH),
+        Data("Earth5", "Earth des", TYPE_EARTH),
+        Data("Earth6", "Earth des", TYPE_EARTH),
+        Data("Mars7", "Mars des", TYPE_MARS),
+        Data("Mars8", "Mars des", TYPE_MARS),
+        Data("Earth9", "Earth des", TYPE_EARTH),
+        Data("Mars10", "Mars des", TYPE_MARS),
+        Data("Mars11", "Mars des", TYPE_MARS)
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityRecyclerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        adapter = RecyclerActivityAdapter(this)
+        adapter.setList(list)
+        binding.recyclerView.adapter = adapter
 
-        val list = arrayListOf(
-            Data("HEADER","", TYPE_HEADER),
-            Data("Earth1","Earth des",TYPE_EARTH),
-            Data("Earth2","Earth des",TYPE_EARTH),
-            Data("Mars3", "Mars des",TYPE_MARS),
-            Data("Earth4","Earth des",TYPE_EARTH),
-            Data("Earth5","Earth des",TYPE_EARTH),
-            Data("Earth6","Earth des",TYPE_EARTH),
-            Data("Mars7", "Mars des",TYPE_MARS),
-            Data("Mars8", "Mars des",TYPE_MARS),
-            Data("Earth9","Earth des",TYPE_EARTH),
-            Data("Mars10", "Mars des",TYPE_MARS),
-            Data("Mars11", "Mars des",TYPE_MARS)
+        binding.recyclerActivityFAB.setOnClickListener{
+            onAddBtnClick(1)
+        }
+    }
 
+    override fun onItemClick(data: Data) {
 
-        )
+    }
 
-        binding.recyclerView.adapter = RecyclerActivityAdapter(list)
+    override fun onAddBtnClick(position: Int) {
+        list.add(position, Data("Mars", "Mars New", TYPE_MARS))
+        adapter.setAddToList(list, position)
+    }
+
+    override fun onRemoveBtnClick(position: Int) {
+        list.removeAt(position)
+        adapter.setRemoveToList(list, position)
     }
 }
