@@ -15,24 +15,24 @@ const val TYPE_HEADER = 3
 class RecyclerActivityAdapter(private var onListItemClickListener: OnListItemClickListener) :
     RecyclerView.Adapter<BaseViewHolder>() {
 
-    private lateinit var list: List<Data>
+    private lateinit var list: MutableList<Pair<Data, Boolean>>
 
-    fun setList(newList: List<Data>) {
-        this.list = newList
+    fun setList(newList: List<Pair<Data, Boolean>>) {
+        this.list = newList.toMutableList()
     }
 
-    fun setAddToList(newList: List<Data>, position: Int) {
-        this.list = newList
+    fun setAddToList(newList: List<Pair<Data, Boolean>>, position: Int) {
+        this.list = newList.toMutableList()
         notifyItemChanged(position)
     }
 
-    fun setRemoveToList(newList: List<Data>, position: Int) {
-        this.list = newList
+    fun setRemoveToList(newList: List<Pair<Data, Boolean>>, position: Int) {
+        this.list = newList.toMutableList()
         notifyItemRemoved(position)
     }
 
-    fun moveItemToList(newList: List<Data>, oldPosition: Int, newPosition: Int) {
-        this.list = newList
+    fun moveItemToList(newList: List<Pair<Data, Boolean>>, oldPosition: Int, newPosition: Int) {
+        this.list = newList.toMutableList()
         notifyItemMoved(oldPosition, newPosition)
     }
 
@@ -42,7 +42,7 @@ class RecyclerActivityAdapter(private var onListItemClickListener: OnListItemCli
     }
 
     override fun getItemViewType(position: Int): Int {
-        return list[position].type
+        return list[position].first.type
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -75,9 +75,9 @@ class RecyclerActivityAdapter(private var onListItemClickListener: OnListItemCli
     }
 
     inner class MarsViewHolder(view: View) : BaseViewHolder(view) {
-        override fun myBind(data: Data) {
+        override fun myBind(listItem: Pair<Data,Boolean>) {
             (ActivityRecyclerItemMarsBinding.bind(itemView)).apply {
-                title.text = data.someText
+                title.text = listItem.first.someText
                 addItemImageView.setOnClickListener {
                     onListItemClickListener.onAddBtnClick(layoutPosition)
                 }
@@ -90,25 +90,32 @@ class RecyclerActivityAdapter(private var onListItemClickListener: OnListItemCli
                 moveItemUp.setOnClickListener {
                     onListItemClickListener.onMoveBtnClick(layoutPosition, layoutPosition - 1)
                 }
+                marsImageView.setOnClickListener {
+                    list[layoutPosition] = list[layoutPosition].let {
+                        it.first to !it.second
+                    }
+                    marsDescriptionTextView.visibility = if(list[layoutPosition].second) View.VISIBLE else View.GONE
+                    //notifyItemChanged(layoutPosition) // лагает при первом нажатии
+                }
             }
         }
     }
 }
 
 abstract class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    abstract fun myBind(data: Data)
+    abstract fun myBind(listItem: Pair<Data,Boolean>)
 }
 
 class HeaderViewHolder(view: View) : BaseViewHolder(view) {
-    override fun myBind(data: Data) {
+    override fun myBind(listItem: Pair<Data,Boolean>) {
         (ActivityRecyclerItemHeaderBinding.bind(itemView)).apply {
-            header.text = data.someText
+            header.text = listItem.first.someText
         }
     }
 }
 
 class EarthViewHolder(view: View) : BaseViewHolder(view) {
-    override fun myBind(data: Data) {
+    override fun myBind(listItem: Pair<Data,Boolean>) {
 
         /*(itemView as ConstraintLayout).findViewById<TextView>(R.id.title).text = data.someText
             (itemView as ConstraintLayout).findViewById<TextView>(R.id.descriptionTextView).text = data.someDescription*/
@@ -118,8 +125,8 @@ class EarthViewHolder(view: View) : BaseViewHolder(view) {
         binding.descriptionTextView.text = data.someDescription*/
 
         (ActivityRecyclerItemEarthBinding.bind(itemView)).apply {
-            title.text = data.someText
-            descriptionTextView.text = data.someDescription
+            title.text = listItem.first.someText
+            descriptionTextView.text = listItem.first.someDescription
         }
     }
 }

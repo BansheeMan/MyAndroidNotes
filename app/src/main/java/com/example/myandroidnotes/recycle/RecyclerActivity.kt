@@ -12,25 +12,30 @@ class RecyclerActivity : AppCompatActivity(), OnListItemClickListener {
     lateinit var adapter: RecyclerActivityAdapter
 
     private val list = arrayListOf(
-        Data("HEADER", "", TYPE_HEADER),
-        Data("Earth1", "Earth des", TYPE_EARTH),
-        Data("Earth2", "Earth des", TYPE_EARTH),
-        Data("Mars3", "Mars des", TYPE_MARS),
-        Data("Earth4", "Earth des", TYPE_EARTH),
-        Data("Earth5", "Earth des", TYPE_EARTH),
-        Data("Earth6", "Earth des", TYPE_EARTH),
-        Data("Mars7", "Mars des", TYPE_MARS),
-        Data("Mars8", "Mars des", TYPE_MARS),
-        Data("Earth9", "Earth des", TYPE_EARTH),
-        Data("Mars10", "Mars des", TYPE_MARS),
-        Data("Mars11", "Mars des", TYPE_MARS)
+        Pair(Data("HEADER", "", TYPE_HEADER), false),
+        Pair(Data("Earth1", "Earth des", TYPE_EARTH), false),
+        Pair(Data("Earth2", "Earth des", TYPE_EARTH), false),
+        Pair(Data("Mars3", "Mars des", TYPE_MARS), false),
+        Pair(Data("Earth4", "Earth des", TYPE_EARTH), false),
+        Pair(Data("Earth5", "Earth des", TYPE_EARTH), false),
+        Pair(Data("Earth6", "Earth des", TYPE_EARTH), false),
+        Pair(Data("Mars7", "Mars des", TYPE_MARS), false)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         binding = ActivityRecyclerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val lon = 1
+        val lat = 2
+        val temp = 20
+        val loc = Pair(lon, lat)
+        val loc2 = lon to lat
+        loc.first
+        loc.second
+        val weather = Triple(lon, lat, temp)
+        val weather2 = lon to lat to temp
 
         adapter = RecyclerActivityAdapter(this)
         adapter.setList(list)
@@ -46,7 +51,7 @@ class RecyclerActivity : AppCompatActivity(), OnListItemClickListener {
     }
 
     override fun onAddBtnClick(position: Int) {
-        list.add(position, Data("Mars", "Mars New", TYPE_MARS))
+        list.add(position, Pair(Data("Mars", "Mars New", TYPE_MARS), false))
         adapter.setAddToList(list, position)
     }
 
