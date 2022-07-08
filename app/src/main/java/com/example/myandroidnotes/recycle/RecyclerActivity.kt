@@ -1,6 +1,7 @@
 package com.example.myandroidnotes.recycle
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myandroidnotes.databinding.ActivityRecyclerBinding
 
@@ -35,7 +36,7 @@ class RecyclerActivity : AppCompatActivity(), OnListItemClickListener {
         adapter.setList(list)
         binding.recyclerView.adapter = adapter
 
-        binding.recyclerActivityFAB.setOnClickListener{
+        binding.recyclerActivityFAB.setOnClickListener {
             onAddBtnClick(1)
         }
     }
@@ -53,4 +54,19 @@ class RecyclerActivity : AppCompatActivity(), OnListItemClickListener {
         list.removeAt(position)
         adapter.setRemoveToList(list, position)
     }
+
+    override fun onMoveBtnClick(oldPosition: Int, newPosition: Int) {
+        try {
+            if (newPosition != 0) {
+                list.removeAt(oldPosition).apply {
+                    list.add(newPosition, this)
+                }
+                adapter.moveItemToList(list, oldPosition, newPosition)
+            }
+        } catch (e: IndexOutOfBoundsException) {
+            Toast.makeText(this, "Вы пытаетесь выйти за рамки массива", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
 }

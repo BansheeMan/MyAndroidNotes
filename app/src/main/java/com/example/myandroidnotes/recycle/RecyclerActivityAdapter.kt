@@ -31,6 +31,12 @@ class RecyclerActivityAdapter(private var onListItemClickListener: OnListItemCli
         notifyItemRemoved(position)
     }
 
+    fun moveItemToList(newList: List<Data>, oldPosition: Int, newPosition: Int) {
+        this.list = newList
+        notifyItemMoved(oldPosition, newPosition)
+    }
+
+
     override fun getItemCount(): Int {
         return list.size
     }
@@ -77,6 +83,12 @@ class RecyclerActivityAdapter(private var onListItemClickListener: OnListItemCli
                 }
                 removeItemImageView.setOnClickListener {
                     onListItemClickListener.onRemoveBtnClick(layoutPosition)
+                }
+                moveItemDown.setOnClickListener {
+                    onListItemClickListener.onMoveBtnClick(layoutPosition, layoutPosition + 1)
+                }
+                moveItemUp.setOnClickListener {
+                    onListItemClickListener.onMoveBtnClick(layoutPosition, layoutPosition - 1)
                 }
             }
         }
