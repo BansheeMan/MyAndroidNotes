@@ -3,6 +3,7 @@ package com.example.myandroidnotes.recycle
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.myandroidnotes.databinding.ActivityRecyclerBinding
 
 class RecyclerActivity : AppCompatActivity(), OnListItemClickListener {
@@ -32,10 +33,13 @@ class RecyclerActivity : AppCompatActivity(), OnListItemClickListener {
         val temp = 20
         val loc = Pair(lon, lat)
         val loc2 = lon to lat
+        loc2.first
         loc.first
         loc.second
         val weather = Triple(lon, lat, temp)
+        weather.third
         val weather2 = lon to lat to temp
+        weather2.second
 
         adapter = RecyclerActivityAdapter(this)
         adapter.setList(list)
@@ -44,6 +48,8 @@ class RecyclerActivity : AppCompatActivity(), OnListItemClickListener {
         binding.recyclerActivityFAB.setOnClickListener {
             onAddBtnClick(1)
         }
+
+        ItemTouchHelper(ItemTouchHelperCallback(adapter)).attachToRecyclerView(binding.recyclerView)
     }
 
     override fun onItemClick(data: Data) {

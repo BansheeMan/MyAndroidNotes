@@ -1,5 +1,6 @@
 package com.example.myandroidnotes.recycle
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,7 @@ const val TYPE_MARS = 2
 const val TYPE_HEADER = 3
 
 class RecyclerActivityAdapter(private var onListItemClickListener: OnListItemClickListener) :
-    RecyclerView.Adapter<BaseViewHolder>() {
+    RecyclerView.Adapter<BaseViewHolder>(), ItemTouchHelperAdapter {
 
     private lateinit var list: MutableList<Pair<Data, Boolean>>
 
@@ -74,8 +75,8 @@ class RecyclerActivityAdapter(private var onListItemClickListener: OnListItemCli
         holder.myBind(list[position])
     }
 
-    inner class MarsViewHolder(view: View) : BaseViewHolder(view) {
-        override fun myBind(listItem: Pair<Data,Boolean>) {
+    inner class MarsViewHolder(view: View) : BaseViewHolder(view), ItemTouchHelperViewHolder {
+        override fun myBind(listItem: Pair<Data, Boolean>) {
             (ActivityRecyclerItemMarsBinding.bind(itemView)).apply {
                 title.text = listItem.first.someText
                 addItemImageView.setOnClickListener {
@@ -94,28 +95,47 @@ class RecyclerActivityAdapter(private var onListItemClickListener: OnListItemCli
                     list[layoutPosition] = list[layoutPosition].let {
                         it.first to !it.second
                     }
-                    marsDescriptionTextView.visibility = if(list[layoutPosition].second) View.VISIBLE else View.GONE
+                    marsDescriptionTextView.visibility =
+                        if (list[layoutPosition].second) View.VISIBLE else View.GONE
                     //notifyItemChanged(layoutPosition) // лагает при первом нажатии
                 }
             }
         }
+
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(Color.LTGRAY)
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundColor(0)
+        }
+    }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        onListItemClickListener.onMoveBtnClick(fromPosition, toPosition)
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    override fun onItemDismiss(position: Int) {
+        onListItemClickListener.onRemoveBtnClick(position)
+        notifyItemRemoved(position)
     }
 }
 
 abstract class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    abstract fun myBind(listItem: Pair<Data,Boolean>)
+    abstract fun myBind(listItem: Pair<Data, Boolean>)
 }
 
 class HeaderViewHolder(view: View) : BaseViewHolder(view) {
-    override fun myBind(listItem: Pair<Data,Boolean>) {
+    override fun myBind(listItem: Pair<Data, Boolean>) {
         (ActivityRecyclerItemHeaderBinding.bind(itemView)).apply {
             header.text = listItem.first.someText
         }
     }
 }
 
-class EarthViewHolder(view: View) : BaseViewHolder(view) {
-    override fun myBind(listItem: Pair<Data,Boolean>) {
+class EarthViewHolder(view: View) : BaseViewHolder(view), ItemTouchHelperViewHolder {
+    override fun myBind(listItem: Pair<Data, Boolean>) {
 
         /*(itemView as ConstraintLayout).findViewById<TextView>(R.id.title).text = data.someText
             (itemView as ConstraintLayout).findViewById<TextView>(R.id.descriptionTextView).text = data.someDescription*/
@@ -128,6 +148,14 @@ class EarthViewHolder(view: View) : BaseViewHolder(view) {
             title.text = listItem.first.someText
             descriptionTextView.text = listItem.first.someDescription
         }
+    }
+
+    override fun onItemSelected() {
+        itemView.setBackgroundColor(Color.LTGRAY)
+    }
+
+    override fun onItemClear() {
+        itemView.setBackgroundColor(0)
     }
 }
 
